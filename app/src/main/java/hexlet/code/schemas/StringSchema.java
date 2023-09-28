@@ -37,25 +37,28 @@ public class StringSchema {
     }
 
     public boolean isValid(Object str) {
+        boolean rezult = true;
         if ((str == null) && isRequired()) {
-            return false;
+            rezult = false;
         }
-        if (!(str == null) && (!(str instanceof String))) {
-            return false;
+        if (rezult && !(str == null) && (!(str instanceof String))) {
+            rezult = false;
         }
-        if (!(str == null) && (str instanceof String) && (str.toString().isEmpty()) && isRequired()) {
-            return false;
+        if (rezult && !(str == null) && (str instanceof String) && (str.toString().isEmpty())
+                && isRequired()) {
+            rezult = false;
         }
-        if (!(str == null) && (str instanceof String) && (str.toString().length() < getMinLength())) {
-            return false;
+        if (rezult && !(str == null) && (str instanceof String)
+                && (str.toString().length() < getMinLength())) {
+            rezult = false;
         }
-        if (!(str == null) && (str instanceof String) && (!getContainsStr().isEmpty())) {
+        if (rezult && !(str == null) && (str instanceof String) && (!getContainsStr().isEmpty())) {
             for (String oneStr: getContainsStr()) {
                 if (!((String) str).contains(oneStr)) {
-                    return false;
+                    rezult = false;
                 }
             }
         }
-        return true;
+        return rezult;
     }
 }
