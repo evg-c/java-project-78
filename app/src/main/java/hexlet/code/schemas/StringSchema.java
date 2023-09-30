@@ -44,9 +44,6 @@ public class StringSchema extends BaseSchema {
 
     public boolean isValid(Object validationObject) {
         boolean result = super.isValid(validationObject);
-//        if ((validationObject == null) && isRequiredNotNull()) {
-//            result = false;
-//        }
         if (result && !(validationObject == null) && (!(validationObject instanceof String))) {
             result = false;
         }
