@@ -6,7 +6,7 @@ public class StringSchema extends BaseSchema {
 //    private boolean required = false;
     private boolean minLengthEnabled = false;
     private int minLength = 0;
-    private ArrayList<String> containsStr = new ArrayList<>();
+    private ArrayList<String> listContainsString = new ArrayList<>();
 
 //    public StringSchema required() {
 //        this.required = true;
@@ -20,10 +20,10 @@ public class StringSchema extends BaseSchema {
     }
 
     public StringSchema contains(String strCon) {
-        if (containsStr.contains(strCon)) {
+        if (listContainsString.contains(strCon)) {
             return this;
         }
-        containsStr.add(strCon);
+        listContainsString.add(strCon);
         return this;
     }
 
@@ -34,8 +34,8 @@ public class StringSchema extends BaseSchema {
         return minLength;
     }
 
-    public ArrayList<String> getContainsStr() {
-        return containsStr;
+    public ArrayList<String> getListContainsString() {
+        return listContainsString;
     }
 
     public boolean isMinLengthEnabled() {
@@ -43,10 +43,7 @@ public class StringSchema extends BaseSchema {
     }
 
     public boolean isValid(Object validationObject) {
-        boolean result = true;
-        if (!super.isValid(validationObject)) {
-            result = false;
-        }
+        boolean result = super.isValid(validationObject);
 //        if ((validationObject == null) && isRequiredNotNull()) {
 //            result = false;
 //        }
@@ -61,8 +58,8 @@ public class StringSchema extends BaseSchema {
                 && (validationObject.toString().length() < getMinLength())) {
             result = false;
         }
-        if (result && (validationObject instanceof String) && (!getContainsStr().isEmpty())) {
-            for (String oneStr: getContainsStr()) {
+        if (result && (validationObject instanceof String) && (!getListContainsString().isEmpty())) {
+            for (String oneStr: getListContainsString()) {
                 if (!((String) validationObject).contains(oneStr)) {
                     result = false;
                 }
