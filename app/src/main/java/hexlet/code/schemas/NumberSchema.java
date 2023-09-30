@@ -46,9 +46,6 @@ public class NumberSchema extends BaseSchema {
 
     public boolean isValid(Object validationObject) {
         boolean result = super.isValid(validationObject);
-//        if (result && (validationObject == null) && isRequiredNotNull()) {
-//            result = false;
-//        }
         if (result && !(validationObject == null) && !(validationObject instanceof Number)) {
             result = false;
         }
