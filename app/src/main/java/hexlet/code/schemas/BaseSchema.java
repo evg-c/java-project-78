@@ -20,11 +20,11 @@ public class BaseSchema {
         return result;
     }
 
-//    public BaseSchema contains(String ya) {
-//        return this;
-//    }
-//
-//    public BaseSchema minLength(int i) {
-//        return this;
-//    }
+    public BaseSchema contains(String ya) {
+        return this;
+    }
+
+    public BaseSchema minLength(int i) {
+        return this;
+    }
 }
