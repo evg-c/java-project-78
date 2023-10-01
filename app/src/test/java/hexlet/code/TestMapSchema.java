@@ -131,4 +131,88 @@ public class TestMapSchema {
         human1.put("age", -5);
         assertThat(schema.isValid(human1)).isFalse();
     }
+
+    @Test
+    public void testShapeOfMapForRange() {
+        Validator v = new Validator();
+        MapSchema schema = v.map();
+        Map<String, BaseSchema> schemas = new HashMap<>();
+        schemas.put("age", v.number().positive().range(5, 10));
+        schema.shape(schemas);
+        Map<String, Object> human1 = new HashMap<>();
+        human1.put("age", 4);
+        assertThat(schema.isValid(human1)).isFalse();
+    }
+
+    @Test
+    public void testShapeOfMapForRange2() {
+        Validator v = new Validator();
+        MapSchema schema = v.map();
+        Map<String, BaseSchema> schemas = new HashMap<>();
+        schemas.put("age", v.number().positive().range(5, 10));
+        schema.shape(schemas);
+        Map<String, Object> human1 = new HashMap<>();
+        human1.put("age", 11);
+        assertThat(schema.isValid(human1)).isFalse();
+    }
+
+    @Test
+    public void testShapeOfMapForRange3() {
+        Validator v = new Validator();
+        MapSchema schema = v.map();
+        Map<String, BaseSchema> schemas = new HashMap<>();
+        schemas.put("age", v.number().positive().range(5, 10));
+        schema.shape(schemas);
+        Map<String, Object> human1 = new HashMap<>();
+        human1.put("age", 8);
+        assertThat(schema.isValid(human1)).isTrue();
+    }
+
+    @Test
+    public void testShapeOfMapForAgeRequired() {
+        Validator v = new Validator();
+        MapSchema schema = v.map();
+        Map<String, BaseSchema> schemas = new HashMap<>();
+        schemas.put("age", v.number().positive().range(5, 10).required());
+        schema.shape(schemas);
+        Map<String, Object> human1 = new HashMap<>();
+        human1.put("age", null);
+        assertThat(schema.isValid(human1)).isFalse();
+    }
+
+    @Test
+    public void testShapeOfMapForAgeRequired2() {
+        Validator v = new Validator();
+        MapSchema schema = v.map();
+        Map<String, BaseSchema> schemas = new HashMap<>();
+        schemas.put("age", v.number().positive().range(5, 10).required());
+        schema.shape(schemas);
+        Map<String, Object> human1 = new HashMap<>();
+        human1.put("age", 9);
+        assertThat(schema.isValid(human1)).isTrue();
+    }
+
+    @Test
+    public void testShapeOfMapForNameContains() {
+        Validator v = new Validator();
+        MapSchema schema = v.map();
+        Map<String, BaseSchema> schemas = new HashMap<>();
+        schemas.put("name", v.string().required().contains("ya"));
+        schema.shape(schemas);
+        Map<String, Object> human1 = new HashMap<>();
+        human1.put("name", "Kolya");
+        assertThat(schema.isValid(human1)).isTrue(); // true
+    }
+
+    @Test
+    public void testShapeOfMapForNameMinLength() {
+        Validator v = new Validator();
+        MapSchema schema = v.map();
+        Map<String, BaseSchema> schemas = new HashMap<>();
+        schemas.put("name", v.string().required().minLength(7).contains("ya"));
+        schema.shape(schemas);
+        Map<String, Object> human1 = new HashMap<>();
+        human1.put("name", "Kolya");
+        assertThat(schema.isValid(human1)).isFalse(); // true
+    }
 }
