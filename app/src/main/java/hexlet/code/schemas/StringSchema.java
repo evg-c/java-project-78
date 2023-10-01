@@ -2,7 +2,7 @@ package hexlet.code.schemas;
 
 import java.util.ArrayList;
 
-public class StringSchema extends BaseSchema {
+public final class StringSchema extends BaseSchema {
 //    private boolean required = false;
     private boolean minLengthEnabled = false;
     private int minLength = 0;
