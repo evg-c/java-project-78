@@ -49,7 +49,7 @@ public class MapSchema extends BaseSchema {
                 for (Map.Entry<String, Object> entryCurrentObjectValidation
                         : ((Map<String, Object>) objectValidation).entrySet()) {
                     if (entryCurrentObjectValidation.getKey().equals(currentKeySchema)) {
-                        result = currentSchema.isValid(entryCurrentObjectValidation.getValue());
+                        result = result && currentSchema.isValid(entryCurrentObjectValidation.getValue());
                     }
                 }
             }
