@@ -1,4 +1,9 @@
 package hexlet.code.schemas;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.Predicate;
+
 /**
  * Базовая схнма валидации данных
  *
@@ -12,7 +17,7 @@ package hexlet.code.schemas;
  * schemas/MapSchema.java - схема валидации данных типа Map
  */
 public class BaseSchema {
-    private boolean required = false;
+    protected List<Predicate> validators = new ArrayList<>();
 
     /**
      * Метод required делает данные обязательными для заполнения.
@@ -21,17 +26,8 @@ public class BaseSchema {
      * @return Возвращает объект схемы с установленным данным ограничением.
      */
     public BaseSchema required() {
-        this.required = true;
+        validators.add(x -> (!(x == null)));
         return this;
-    }
-
-    /**
-     * Метод isRequiredNotNull служит для определения наличия или отсутствия ограничения обязательности заполнения.
-     * Входные параметры отсутствуют.
-     * @return Возвращает boolean логическое значение наличия (true) или отстуствия (false) ограничения NotNull.
-     */
-    public boolean isRequiredNotNull() {
-        return required;
     }
 
     /**
@@ -42,34 +38,11 @@ public class BaseSchema {
      * в схеме правилам, или false, если не соответствуют.
      */
     public boolean isValid(Object validationObject) {
-        boolean result = true;
-        if ((validationObject == null) && isRequiredNotNull()) {
-            result = false;
+        for (Predicate oneCheck: validators) {
+            if (!oneCheck.test(validationObject)) {
+                return false;
+            }
         }
-        return result;
-    }
-
-    /**
-     * Метод contains в данном классе используется для валидации типов данных Object, когда еще неизвестно,
-     * строка в этом объекте или нет.
-     * Предназначен только для проверки строковых данных, применяется - schemas/StringSchema.java
-     * Добавляет в схему ограничение по содержимому строки.
-     * @param ya - Строка должна содержать определённую подстроку.
-     * @return Возвращает объект схемы с установленным данным ограничением.
-     */
-    public BaseSchema contains(String ya) {
-        return this;
-    }
-
-    /**
-     * Метод minLength в данном классе используется для валидации типов данных Object, когда еще неизвестно,
-     * строка в этом объекте или нет.
-     * Предназначен только для проверки строковых данных, применяется - schemas/StringSchema.java
-     * Добавляет в схему ограничение минимальной длины для строки.
-     * @param i - Строка должна быть равна или длиннее указанного числа.
-     * @return Возвращает объект схемы с установленным данным ограничением.
-     */
-    public BaseSchema minLength(int i) {
-        return this;
+        return true;
     }
 }

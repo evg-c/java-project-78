@@ -16,7 +16,7 @@ public class TestMapSchema {
     }
 
     @Test
-    public void testMapIsNullAndNotRequired2() {
+    public void testMapIsEmptyAndNotRequired() {
         Validator v = new Validator();
         MapSchema schema = v.map();
         assertThat(schema.isValid(new HashMap<>())).isTrue();
@@ -30,7 +30,7 @@ public class TestMapSchema {
     }
 
     @Test
-    public void testMapIsNullAndRequired2() {
+    public void testMapIsEmptyAndRequired() {
         Validator v = new Validator();
         MapSchema schema = v.map();
         schema.required();
@@ -44,7 +44,7 @@ public class TestMapSchema {
     }
 
     @Test
-    public void testSizeOfMap1() {
+    public void testSizeOfMapNotApplicable() {
         Validator v = new Validator();
         MapSchema schema = v.map();
         Map<String, String> data = new HashMap<>();
@@ -53,7 +53,7 @@ public class TestMapSchema {
     }
 
     @Test
-    public void testSizeOfMap2() {
+    public void testSizeOfMapWithOneElement() {
         Validator v = new Validator();
         MapSchema schema = v.map();
         Map<String, String> data = new HashMap<>();
@@ -63,7 +63,7 @@ public class TestMapSchema {
     }
 
     @Test
-    public void testSizeOfMap3() {
+    public void testSizeOfMapWithTwoElement() {
         Validator v = new Validator();
         MapSchema schema = v.map();
         Map<String, String> data = new HashMap<>();
@@ -74,7 +74,7 @@ public class TestMapSchema {
     }
 
     @Test
-    public void testShapeOfMapForName() {
+    public void testShapeOfMapForNameNormal() {
         Validator v = new Validator();
         MapSchema schema = v.map();
         Map<String, BaseSchema> schemas = new HashMap<>();
@@ -86,7 +86,7 @@ public class TestMapSchema {
     }
 
     @Test
-    public void testShapeOfMapForName2() {
+    public void testShapeOfMapForNameEmpty() {
         Validator v = new Validator();
         MapSchema schema = v.map();
         Map<String, BaseSchema> schemas = new HashMap<>();
@@ -98,7 +98,7 @@ public class TestMapSchema {
     }
 
     @Test
-    public void testShapeOfMapForName3() {
+    public void testShapeOfMapForNameInteger() {
         Validator v = new Validator();
         MapSchema schema = v.map();
         Map<String, BaseSchema> schemas = new HashMap<>();
@@ -122,7 +122,7 @@ public class TestMapSchema {
     }
 
     @Test
-    public void testShapeOfMapForAge2() {
+    public void testShapeOfMapForAgeNull() {
         Validator v = new Validator();
         MapSchema schema = v.map();
         Map<String, BaseSchema> schemas = new HashMap<>();
@@ -134,7 +134,7 @@ public class TestMapSchema {
     }
 
     @Test
-    public void testShapeOfMapForAge3() {
+    public void testShapeOfMapForAgeNegative() {
         Validator v = new Validator();
         MapSchema schema = v.map();
         Map<String, BaseSchema> schemas = new HashMap<>();
@@ -146,7 +146,7 @@ public class TestMapSchema {
     }
 
     @Test
-    public void testShapeOfMapForRange() {
+    public void testShapeOfMapForRangeLeft() {
         Validator v = new Validator();
         MapSchema schema = v.map();
         Map<String, BaseSchema> schemas = new HashMap<>();
@@ -158,7 +158,7 @@ public class TestMapSchema {
     }
 
     @Test
-    public void testShapeOfMapForRange2() {
+    public void testShapeOfMapForRangeRight() {
         Validator v = new Validator();
         MapSchema schema = v.map();
         Map<String, BaseSchema> schemas = new HashMap<>();
@@ -170,7 +170,7 @@ public class TestMapSchema {
     }
 
     @Test
-    public void testShapeOfMapForRange3() {
+    public void testShapeOfMapForRangeInside() {
         Validator v = new Validator();
         MapSchema schema = v.map();
         Map<String, BaseSchema> schemas = new HashMap<>();
@@ -182,7 +182,7 @@ public class TestMapSchema {
     }
 
     @Test
-    public void testShapeOfMapForAgeRequired() {
+    public void allNumberConditionsWithAgeNull() {
         Validator v = new Validator();
         MapSchema schema = v.map();
         Map<String, BaseSchema> schemas = new HashMap<>();
@@ -194,7 +194,7 @@ public class TestMapSchema {
     }
 
     @Test
-    public void testShapeOfMapForAgeRequired2() {
+    public void allNumberConditionsWithAgeNormal() {
         Validator v = new Validator();
         MapSchema schema = v.map();
         Map<String, BaseSchema> schemas = new HashMap<>();
@@ -206,7 +206,7 @@ public class TestMapSchema {
     }
 
     @Test
-    public void testShapeOfMapForNameContains() {
+    public void allStringConditionsWithContains() {
         Validator v = new Validator();
         MapSchema schema = v.map();
         Map<String, BaseSchema> schemas = new HashMap<>();
@@ -218,7 +218,7 @@ public class TestMapSchema {
     }
 
     @Test
-    public void testShapeOfMapForNameContains2() {
+    public void allStringConditionsNotContains() {
         Validator v = new Validator();
         MapSchema schema = v.map();
         Map<String, BaseSchema> schemas = new HashMap<>();
