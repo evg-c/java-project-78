@@ -1,7 +1,7 @@
 package hexlet.code.schemas;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.function.Predicate;
 
 /**
@@ -17,7 +17,8 @@ import java.util.function.Predicate;
  * schemas/MapSchema.java - схема валидации данных типа Map
  */
 public class BaseSchema {
-    protected List<Predicate> validators = new ArrayList<>();
+    protected Map<String, Predicate> validators = new HashMap<>();
+    protected boolean required = false;
 
     /**
      * Метод required делает данные обязательными для заполнения.
@@ -26,7 +27,7 @@ public class BaseSchema {
      * @return Возвращает объект схемы с установленным данным ограничением.
      */
     public BaseSchema required() {
-        validators.add(x -> (!(x == null)));
+        this.required = true;
         return this;
     }
 
@@ -38,11 +39,24 @@ public class BaseSchema {
      * в схеме правилам, или false, если не соответствуют.
      */
     public boolean isValid(Object validationObject) {
-        for (Predicate oneCheck: validators) {
-            if (!oneCheck.test(validationObject)) {
+        if (this.required && (validationObject == null)) {
+            return false;
+        }
+        for (Map.Entry<String, Predicate> oneCheck: validators.entrySet()) {
+            Predicate currentPredicate = oneCheck.getValue();
+            if (!currentPredicate.test(validationObject)) {
                 return false;
             }
         }
         return true;
+    }
+    /**
+     * Метод addCheck добавляет в схему ограничение.
+     * @param checkName - имя ограничения в формате строки;
+     * @param check - условие ограничения в формате предиката;
+     * Заполняет объект схемы с установленным данным ограничением.
+     */
+    public void addCheck(String checkName, Predicate check) {
+        validators.put(checkName, check);
     }
 }
