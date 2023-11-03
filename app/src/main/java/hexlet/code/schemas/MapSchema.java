@@ -26,4 +26,9 @@ public final class MapSchema extends BaseSchema {
         );
         return this;
     }
+
+    public MapSchema required() {
+        super.required();
+        return this;
+    }
 }

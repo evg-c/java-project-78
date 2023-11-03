@@ -15,4 +15,9 @@ public final class NumberSchema extends BaseSchema {
                 && ((Integer) x <= end)));
         return this;
     }
+
+    public NumberSchema required() {
+        super.required();
+        return this;
+    }
 }
